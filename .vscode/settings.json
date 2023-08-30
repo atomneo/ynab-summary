@@ -1,0 +1,18 @@
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "editor.formatOnSave": true,
+  "editor.tabSize": 2,
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact",
+    "typescript": "typescriptreact"
+  },
+  "eslint.workingDirectories": [{ "mode": "auto" }],
+  "files.exclude": {
+    "**/node_modules": true,
+    "**/.next": true,
+    "**/.cache": true,
+    "**/dist": true
+  }
+}
