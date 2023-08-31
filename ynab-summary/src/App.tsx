@@ -1,32 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import { Budgets } from "./services/ynab/Budgets";
+import React, { useEffect, useState } from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import { useYnabApi } from "./services/ynab/useYnabApi";
+import { BudgetSummary } from "./services/ynab/data-contracts";
 
 function App() {
-  const budgets = new Budgets({
-    securityWorker: (securityData: any) => {
-      if (securityData && "apiKey" in securityData) {
-        return {
-          headers: {
-            Authorization: `Bearer ${securityData.apiKey}`,
-          },
-        };
-      }
-      return {};
-    },
-  });
+  const ynabApi = useYnabApi();
 
-  budgets.setSecurityData({ apiKey: process.env.REACT_APP_YNAB_APIKEY });
+  const [allBudgets, setAllBudgets] = useState<BudgetSummary[]>([]);
 
-  budgets
-    .getBudgetById("4c2b8c0e-32ce-4690-b1f3-4f4268be265b")
-    .then((budgets) => {
-      console.log("budgets", budgets);
-    })
-    .catch((error) => {
-      console.log("error", error);
-    });
+  useEffect(() => {
+    ynabApi
+      .getAllBudgets()
+      .then((response) => {
+        return setAllBudgets(response.data.budgets);
+      })
+      .catch((error) => {
+        console.log("Error during getting budgets", error);
+      });
+  }, []);
+
+  console.log("allBudgets", allBudgets);
 
   return (
     <div className="App">
