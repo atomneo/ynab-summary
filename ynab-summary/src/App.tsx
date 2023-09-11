@@ -1,43 +1,21 @@
-import React, { useEffect, useState } from "react";
-import logo from "./logo.svg";
 import "./App.css";
-import { useYnabApi } from "./services/ynab/useYnabApi";
-import { BudgetSummary } from "./services/ynab/data-contracts";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import BudgetDetails from "./components/BudgetDetails";
+import Layout from "./components/Layout";
 
 function App() {
-  const ynabApi = useYnabApi();
-
-  const [allBudgets, setAllBudgets] = useState<BudgetSummary[]>([]);
-
-  useEffect(() => {
-    ynabApi
-      .getAllBudgets()
-      .then((response) => {
-        return setAllBudgets(response.data.budgets);
-      })
-      .catch((error) => {
-        console.log("Error during getting budgets", error);
-      });
-  }, []);
-
-  console.log("allBudgets", allBudgets);
-
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <BrowserRouter>
+        <Routes>
+          <Route element={<Layout />}>
+            {
+              //<Route path="/" element={<Home />} />
+            }
+            <Route path="budget/:id" element={<BudgetDetails />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }

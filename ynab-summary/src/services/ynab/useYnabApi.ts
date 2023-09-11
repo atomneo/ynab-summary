@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios";
-import { BudgetSummaryResponse } from "./data-contracts";
+import { BudgetDetailResponse, BudgetSummaryResponse } from "./data-contracts";
 
 const BudgetsPath = "/budgets";
 
@@ -50,7 +50,16 @@ export function useYnabApi() {
       include_accounts: includeAccounts,
     });
 
+  const getBudgetById = async (
+    budgetId: string,
+    lastKnowledgeOfServer?: number
+  ): Promise<BudgetDetailResponse> =>
+    makeGet<BudgetDetailResponse>(`${BudgetsPath}/${budgetId}`, {
+      last_knowledge_of_server: lastKnowledgeOfServer,
+    });
+
   return {
     getAllBudgets,
+    getBudgetById,
   };
 }
