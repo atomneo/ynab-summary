@@ -3,7 +3,17 @@ import { BudgetDetail } from "../services/ynab/data-contracts";
 import { useYnabApi } from "../services/ynab/useYnabApi";
 import { useParams } from "react-router-dom";
 import CategoryGroupView from "./CategoryGroupView";
-import { Alert, Col, Form, ListGroup, Row, Spinner } from "react-bootstrap";
+import {
+  Alert,
+  Button,
+  Col,
+  Form,
+  InputGroup,
+  ListGroup,
+  Row,
+  Spinner,
+} from "react-bootstrap";
+import { XCircle } from "react-bootstrap-icons";
 
 function BudgetDetails() {
   const [budget, setBudget] = useState<BudgetDetail | undefined>(undefined);
@@ -41,11 +51,20 @@ function BudgetDetails() {
       </Row>
       <Row>
         <Col>
-          <Form.Control
-            type="text"
-            id="inputCategoriesFilter"
-            onChange={(event) => setFilter(event.target.value.toLowerCase())}
-          />
+          <InputGroup>
+            <Form.Control
+              type="text"
+              id="inputCategoriesFilter"
+              onChange={(event) => setFilter(event.target.value.toLowerCase())}
+              value={filter}
+            />
+            <Button
+              variant="outline-secondary"
+              onClick={() => setFilter(undefined)}
+            >
+              <XCircle size={22} />
+            </Button>
+          </InputGroup>
         </Col>
       </Row>
       <Row>

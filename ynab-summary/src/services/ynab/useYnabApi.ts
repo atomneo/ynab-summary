@@ -28,20 +28,20 @@ export function useYnabApi() {
     return response.data;
   };
 
-  const makePost = async <T>(path: string, body?: BodyInit) => {
-    const response: AxiosResponse<T> = await axiosBase.post<T>(path, body);
-    return response.data;
-  };
+  // const makePost = async <T>(path: string, body?: BodyInit) => {
+  //   const response: AxiosResponse<T> = await axiosBase.post<T>(path, body);
+  //   return response.data;
+  // };
 
-  const makePut = async <T>(path: string, body?: BodyInit) => {
-    const response: AxiosResponse<T> = await axiosBase.put<T>(path, body);
-    return response.data;
-  };
+  // const makePut = async <T>(path: string, body?: BodyInit) => {
+  //   const response: AxiosResponse<T> = await axiosBase.put<T>(path, body);
+  //   return response.data;
+  // };
 
-  const makeDelete = async <T>(path: string) => {
-    const response: AxiosResponse<T> = await axiosBase.delete<T>(path);
-    return response.data;
-  };
+  // const makeDelete = async <T>(path: string) => {
+  //   const response: AxiosResponse<T> = await axiosBase.delete<T>(path);
+  //   return response.data;
+  // };
 
   const getAllBudgets = async (
     includeAccounts: boolean = false
