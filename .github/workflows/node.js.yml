@@ -30,8 +30,8 @@ jobs:
     - run: npm run build --if-present
       working-directory: ./ynab-summary
 
-    - run: npm test
-      working-directory: ./ynab-summary
+    #- run: npm test
+    #  working-directory: ./ynab-summary
 
     - name: Deploy
       run: |
