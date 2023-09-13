@@ -19,6 +19,7 @@ export default function BudgetSelect() {
         console.log("budgets", budgets);
       })
       .catch((err) => console.log("Error during loading budgets", err));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
