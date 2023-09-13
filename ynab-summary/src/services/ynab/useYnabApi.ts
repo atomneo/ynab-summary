@@ -8,11 +8,13 @@ const cache = setupCache({
   maxAge: 30 * 1000, // 30 seconds
 });
 
+const token = localStorage.getItem("token");
+
 export function useYnabApi() {
   const axiosBase = axios.create({
     baseURL: process.env.REACT_APP_YNAB_URL,
     headers: {
-      Authorization: `Bearer ${process.env.REACT_APP_YNAB_APIKEY}`,
+      Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
     },
     adapter: cache.adapter,
