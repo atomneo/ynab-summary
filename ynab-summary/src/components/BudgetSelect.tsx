@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useYnabApi } from "../services/ynab/useYnabApi";
 import { BudgetSummary } from "../services/ynab/data-contracts";
-import { Button, Col, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 export default function BudgetSelect() {
