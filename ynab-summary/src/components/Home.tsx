@@ -29,6 +29,7 @@ export default function Home() {
     if (inputValue) {
       localStorage.setItem(localStorageTokenKey, inputValue);
       setToken(inputValue);
+      window.location.reload();
     }
   };
 
