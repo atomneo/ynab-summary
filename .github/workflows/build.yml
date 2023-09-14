@@ -34,5 +34,5 @@ jobs:
     - name: Upload Build Artifact
       uses: actions/upload-artifact@v3
       with:
-        name: ynab-summary
+        name: ynab-summary-${{ github.ref_name }}-${{ github.run_number }}
         path: ./ynab-summary/build/
