@@ -11,13 +11,15 @@ interface CategoryGroupViewProps {
 }
 
 function CategoryGroupView(props: CategoryGroupViewProps) {
-  const [isCategoryVisible, setIsCategoryVisible] = useState<boolean>(true);
-
   const categoryGroupBalance =
     (props.categories || []).reduce(
       (acc, category) => acc + category.balance,
       0
     ) / 1000;
+
+  const [isCategoryVisible, setIsCategoryVisible] = useState<boolean>(
+    categoryGroupBalance > 0
+  );
 
   return (
     <>
