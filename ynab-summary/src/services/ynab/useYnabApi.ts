@@ -1,7 +1,8 @@
 import axios, { AxiosResponse } from "axios";
-import { BudgetDetailResponse, BudgetSummaryResponse } from "./data-contracts";
+import { AccountsResponse, BudgetDetailResponse, BudgetSummaryResponse } from "./data-contracts";
 
 const BudgetsPath = "/budgets";
+const AccountsPath = "/budgets/{id}/accounts";
 
 const { setupCache } = require("axios-cache-adapter");
 const cache = setupCache({
@@ -60,8 +61,17 @@ export function useYnabApi() {
       last_knowledge_of_server: lastKnowledgeOfServer,
     });
 
+  const getBudgetAccounts = async (
+    budgetId: string,
+    lastKnowledgeOfServer?: number
+  ): Promise<AccountsResponse> =>
+    makeGet<AccountsResponse>(`${AccountsPath.replace("{id}", budgetId)}`, {
+      last_knowledge_of_server: lastKnowledgeOfServer,
+    });
+
   return {
     getAllBudgets,
     getBudgetById,
+    getBudgetAccounts,
   };
 }

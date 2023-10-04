@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { BudgetDetail } from "../services/ynab/data-contracts";
+import { Account, AccountType, BudgetDetail } from "../services/ynab/data-contracts";
 import { useYnabApi } from "../services/ynab/useYnabApi";
 import { useParams } from "react-router-dom";
 import CategoryGroupView from "./CategoryGroupView";
@@ -14,9 +14,11 @@ import {
   Spinner,
 } from "react-bootstrap";
 import { XCircle } from "react-bootstrap-icons";
+import CurrencyBadge from "./CurrencyBadge";
 
 function BudgetDetails() {
   const [budget, setBudget] = useState<BudgetDetail | undefined>(undefined);
+  const [accounts, setAccounts] = useState<Account[]>([]);
   const [filter, setFilter] = useState<string | undefined>(undefined);
   const [isDataReady, setIsDataReady] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | undefined>(
@@ -41,6 +43,17 @@ function BudgetDetails() {
           console.log("error occured:", e);
           setErrorMessage(e.message);
         });
+
+      ynabApi
+        .getBudgetAccounts(id)
+        .then(incomingAccounts => {
+          setAccounts(incomingAccounts.data.accounts);
+          console.log("incomingAccounts", incomingAccounts);
+        })
+        .catch(e => {
+          console.log("error occured", e);
+          setErrorMessage(e.message)
+        });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -49,6 +62,16 @@ function BudgetDetails() {
     <>
       <Row>
         <h1>{budget?.name}</h1>
+      </Row>
+      <Row>
+        {accounts
+          .filter(account =>
+            account.closed === false &&
+            account.deleted === false &&
+            (account.type === AccountType.Checking || account.type === AccountType.Cash))
+          .map(account => {
+            return <Col key={account.id}>{account.name} <CurrencyBadge value={account.balance / 1000}></CurrencyBadge></Col>
+          })}
       </Row>
       <Row>
         <Col>
